@@ -35,15 +35,21 @@ It needs `jsonschema` (`pip install jsonschema`). CI runs the second form on eve
 
 ## Signing
 
-Bram downloads a network source only with a detached `index.signature.json` beside the index, signed
-with the publisher's P-256 key. The app shows the key's SHA-256 fingerprint and accepts nothing until
-the person approves that key; there is no unsigned fallback. The protocol, the helper, and how a
-reader checks a fingerprint are in
+Every index here is published with a detached `index.signature.json`, signed with the repository
+publisher's P-256 key over the exact index bytes. The app shows the key's SHA-256 fingerprint and
+accepts nothing until the person approves that key; there is no unsigned fallback. The protocol and
+the helper are in
 [`tools/recipe-signing`](https://github.com/KuRue/bram/tree/main/tools/recipe-signing).
 
-The app's bundled snapshot remains the reviewed default. This repository's `index.json` is the
-contribution target and becomes a source a person can add once its publisher signs a release with a
-key held outside this repository.
+Add this repository in **Settings → Hardware → Recipe sources** as
+`KuRue/bram-hardware-recipes@<full commit>`, which reads the files at that immutable commit. The
+current publisher key fingerprint is
+`ab1343f3b582daf585095d58b2f24a537eec6c430c46f5b67192a3f563645b08`; compare it with the app's
+prompt, and with the owner through a separate channel. The private key is held outside this
+repository.
+
+The app's bundled snapshot remains the reviewed default; this repository is an external source a
+person chooses to add.
 
 ## License
 
