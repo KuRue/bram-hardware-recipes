@@ -48,6 +48,10 @@ current publisher key fingerprint is
 prompt, and with the owner through a separate channel. The private key is held outside this
 repository.
 
+CI verifies `index.signature.json` against the exact index bytes. A pull request that changes
+`index.json` must therefore include a fresh signature, made after the last edit; otherwise the check
+fails, and an update signed before the edit would be refused by the app.
+
 The app's bundled snapshot remains the reviewed default; this repository is an external source a
 person chooses to add.
 
