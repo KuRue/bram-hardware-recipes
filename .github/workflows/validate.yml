@@ -1,0 +1,31 @@
+name: Validate recipes
+
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    validate:
+        name: Check schemas, fixtures, and the index
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - name: Check out source
+              uses: actions/checkout@v6
+
+            - name: Set up Python
+              uses: actions/setup-python@v6
+              with:
+                  python-version: "3.12"
+
+            - name: Validate the corpus and the published index
+              shell: bash
+              run: |
+                  python3 -m pip install --quiet jsonschema
+                  python3 validate.py
